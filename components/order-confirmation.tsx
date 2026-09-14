@@ -65,7 +65,7 @@ export function OrderConfirmation({
         <LocalDateTime iso={order.created_at} locale={locale} />
       </p>
       {order.status === "declined" && order.decline_reason ? (
-        <p className="surface mt-4 p-4 text-sm">
+        <p className="surface mt-4 p-4 text-sm whitespace-pre-wrap">
           {t("order.declineReason", { reason: order.decline_reason })}
         </p>
       ) : null}

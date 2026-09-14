@@ -97,7 +97,7 @@ export default async function ProductPage({
           {t("product.back")}
         </Link>
         <h1 className="page-title mt-4">{product.name}</h1>
-        <p className="mt-4 text-ink-soft">{product.description}</p>
+        <p className="mt-4 text-ink-soft whitespace-pre-wrap leading-relaxed">{product.description}</p>
         <div className="mt-8">
           {hasOffer ? (
             <div>

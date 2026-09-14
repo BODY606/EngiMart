@@ -92,7 +92,7 @@ export default async function AdminOrderDetailPage({
         {(order as Order).status === "declined" && (order as Order).decline_reason ? (
           <div className="sm:col-span-2">
             <dt className="text-ink-soft">{t("admin.declineReason")}</dt>
-            <dd>{(order as Order).decline_reason}</dd>
+            <dd className="whitespace-pre-wrap">{(order as Order).decline_reason}</dd>
           </div>
         ) : null}
       </dl>
