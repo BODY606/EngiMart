@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Arduino Uno">
+  <rect width="800" height="600" fill="#FAFAF8"/>
+  <rect x="140" y="90" width="520" height="420" rx="18" fill="#2F5D4E"/>
+  <rect x="168" y="118" width="464" height="364" rx="8" fill="#3A7260"/>
+  <rect x="190" y="150" width="28" height="220" fill="#cfc6b0"/>
+  <rect x="582" y="150" width="28" height="220" fill="#cfc6b0"/>
+  <rect x="240" y="168" width="160" height="110" fill="#1C1C1A"/>
+  <rect x="430" y="190" width="90" height="70" rx="6" fill="#3d7a62"/>
+  <circle cx="250" cy="430" r="18" fill="#d7c39a"/>
+  <circle cx="310" cy="430" r="18" fill="#d7c39a"/>
+  <path d="M200 120h400M200 480h400" stroke="#8FB5A6" stroke-width="1" opacity=".5"/>
+</svg>
