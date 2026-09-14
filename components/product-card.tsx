@@ -61,7 +61,7 @@ export function ProductCard({
               {product.name}
             </h3>
           </Link>
-          <p className="mt-2 line-clamp-2 text-sm text-ink-soft">
+          <p className="mt-2 line-clamp-2 text-sm text-ink-soft whitespace-pre-line">
             {product.description}
           </p>
         </div>

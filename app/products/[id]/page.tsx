@@ -12,6 +12,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: {
@@ -97,7 +99,18 @@ export default async function ProductPage({
           {t("product.back")}
         </Link>
         <h1 className="page-title mt-4">{product.name}</h1>
-        <p className="mt-4 text-ink-soft whitespace-pre-wrap leading-relaxed">{product.description}</p>
+        <div className="mt-4 text-ink-soft space-y-2 text-base leading-relaxed">
+          {product.description
+            ? product.description
+                .replaceAll("\\n", "\n")
+                .split("\n")
+                .map((line, idx) => (
+                  <p key={idx} className={line.trim() === "" ? "h-3" : "min-h-[1.4em]"}>
+                    {line}
+                  </p>
+                ))
+            : null}
+        </div>
         <div className="mt-8">
           {hasOffer ? (
             <div>
