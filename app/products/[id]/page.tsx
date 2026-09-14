@@ -99,9 +99,11 @@ export default async function ProductPage({
           {t("product.back")}
         </Link>
         <h1 className="page-title mt-4">{product.name}</h1>
-        <div className="mt-4 text-ink-soft space-y-2 text-base leading-relaxed">
+        <div className="mt-4 text-ink-soft space-y-2 text-base leading-relaxed text-start" dir="auto">
           {product.description
             ? product.description
+                .replaceAll("\r\n", "\n")
+                .replaceAll("\r", "\n")
                 .replaceAll("\\n", "\n")
                 .split("\n")
                 .map((line, idx) => (
