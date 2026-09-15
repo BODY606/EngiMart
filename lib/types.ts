@@ -5,6 +5,8 @@ export type Product = {
   base_price: number;
   sale_price?: number | null;
   image_url: string | null;
+  images?: string[] | null;
+  pdf_url?: string | null;
   is_available: boolean;
   source_url?: string | null;
   created_at: string;

@@ -69,11 +69,13 @@ export const customRequestSchema = z.object({
 });
 
 export const productSchema = z.object({
-  name: z.string().trim().min(2).max(120),
-  description: z.string().trim().max(2000).default(""),
+  name: z.string().trim().min(1, "Enter a product name"),
+  description: z.string().trim().default(""),
   basePrice: z.coerce.number().min(0).max(1_000_000),
   salePrice: z.coerce.number().min(0).max(1_000_000).optional().nullable(),
   imageUrl: z.string().trim().url().optional().or(z.literal("")).nullable(),
+  images: z.array(z.string().trim()).optional().default([]),
+  pdfUrl: z.string().trim().url().optional().or(z.literal("")).nullable(),
   sourceUrl: z.string().trim().url().optional().or(z.literal("")).nullable(),
   isAvailable: z.boolean().optional(),
 });

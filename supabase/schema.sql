@@ -28,6 +28,8 @@ create table if not exists public.products (
 
 alter table if exists public.products add column if not exists source_url text;
 alter table if exists public.products add column if not exists sale_price numeric(12, 2);
+alter table if exists public.products add column if not exists images text[] default '{}';
+alter table if exists public.products add column if not exists pdf_url text;
 
 create table if not exists public.pricing_settings (
   id uuid primary key default gen_random_uuid(),
@@ -195,6 +197,20 @@ set
   file_size_limit = excluded.file_size_limit,
   allowed_mime_types = excluded.allowed_mime_types;
 
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'product-files',
+  'product-files',
+  true,
+  20971520,
+  array['application/pdf']::text[]
+)
+on conflict (id) do update
+set
+  public = excluded.public,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
+
 -- ---------------------------------------------------------------------------
 -- Row Level Security
 -- ---------------------------------------------------------------------------
@@ -327,3 +343,10 @@ create policy "transfer_proofs_own_insert"
     bucket_id = 'transfer-proofs'
     and (storage.foldername(name))[1] = auth.uid()::text
   );
+
+-- storage: public read for product files / PDFs
+drop policy if exists "product_files_public_read" on storage.objects;
+create policy "product_files_public_read"
+  on storage.objects for select
+  to public
+  using (bucket_id = 'product-files');

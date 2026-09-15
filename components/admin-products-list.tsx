@@ -8,7 +8,7 @@ import { matchesProduct } from "@/lib/admin-search";
 import { formatEgp } from "@/lib/money";
 import { useT } from "@/lib/i18n/provider";
 import type { Product } from "@/lib/types";
-import { IconExternalLink, IconPencil } from "@tabler/icons-react";
+import { IconExternalLink, IconFileTypePdf, IconPencil, IconPhoto } from "@tabler/icons-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -63,7 +63,21 @@ export function AdminProductsList({ products }: { products: Product[] }) {
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="font-medium">{product.name}</p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="font-medium">{product.name}</p>
+                    {product.pdf_url && (
+                      <span className="inline-flex items-center gap-1 rounded bg-red-500/10 px-1.5 py-0.5 text-[11px] font-semibold text-red-600 dark:text-red-400">
+                        <IconFileTypePdf size={12} />
+                        PDF
+                      </span>
+                    )}
+                    {product.images && product.images.length > 1 && (
+                      <span className="inline-flex items-center gap-1 rounded bg-line/60 px-1.5 py-0.5 text-[11px] text-ink-soft">
+                        <IconPhoto size={12} />
+                        {product.images.length}
+                      </span>
+                    )}
+                  </div>
                   {product.description ? (
                     <p className="mt-1 line-clamp-2 text-sm text-ink-soft">
                       {product.description}
