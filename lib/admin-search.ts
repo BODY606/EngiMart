@@ -1,21 +1,20 @@
 import { formatOrderTimestamp } from "@/lib/datetime";
+import { matchesProductBilingual } from "@/lib/bilingual-search";
 
 function normalizeSearch(query: string) {
   return query.trim().toLowerCase().replace(/\s+/g, " ");
 }
 
 export function matchesProduct(
-  product: { name: string; base_price: number },
+  product: { name: string; description?: string; base_price: number },
   query: string,
 ) {
-  const q = normalizeSearch(query);
-  if (!q) return true;
-  if (product.name.toLowerCase().includes(q)) return true;
-  const digits = q.replace(/[^\d.]/g, "");
-  if (!digits) return false;
-  const raw = String(product.base_price);
-  const fixed = Number(product.base_price).toFixed(2);
-  return raw.includes(digits) || fixed.includes(digits);
+  return matchesProductBilingual(
+    product.name,
+    product.description || "",
+    product.base_price,
+    query,
+  );
 }
 
 function matchesDate(iso: string, query: string, locale: string) {
