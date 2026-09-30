@@ -4,10 +4,14 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { PendingLabel } from "@/components/pending-label";
 import { useT } from "@/lib/i18n/provider";
 import { useState } from "react";
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export function AdminLogin() {
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const t = useT();
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -30,8 +34,18 @@ export function AdminLogin() {
   }
 
   return (
-    <div className="wrap page">
-      <div className="mb-8 flex justify-end">
+    <div className="wrap page max-w-md mx-auto">
+      <div className="mb-8 flex items-center justify-between">
+        <Link href="/" title="ElectroMart">
+          <Image
+            src="/electromart-logo-clean.png"
+            alt="ElectroMart"
+            width={150}
+            height={43}
+            priority
+            className="h-8 w-auto object-contain"
+          />
+        </Link>
         <LanguageSwitcher />
       </div>
       <h1 className="page-title">{t("admin.password")}</h1>
@@ -41,14 +55,36 @@ export function AdminLogin() {
       >
         <div>
           <label htmlFor="password">{t("admin.adminPassword")}</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autoFocus
-            required
-            autoComplete="current-password"
-          />
+          <div className="relative flex items-center">
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              autoFocus
+              required
+              autoComplete="current-password"
+              className="w-full"
+              style={{ paddingInlineEnd: "2.75rem" }}
+            />
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowPassword((prev) => !prev);
+              }}
+              className="absolute end-2.5 z-10 flex h-8 w-8 items-center justify-center rounded-lg text-ink-soft hover:text-forest transition-colors cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest"
+              aria-label={showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
+              title={showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
+              tabIndex={-1}
+            >
+              {showPassword ? (
+                <IconEyeOff size={19} stroke={1.8} className="pointer-events-none" />
+              ) : (
+                <IconEye size={19} stroke={1.8} className="pointer-events-none" />
+              )}
+            </button>
+          </div>
         </div>
         {error && <p className="field-error">{error}</p>}
         <button className="btn btn-primary" disabled={pending}>
